@@ -1,0 +1,6 @@
+*.class
+.idea
+target/
+.metals
+.bloop
+src/main/resources/creds.conf
