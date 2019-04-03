@@ -23,7 +23,7 @@ object WorkingUnfoldAsync {
   def main(args: Array[String]): Unit = {
     val initialRequest: HttpRequest = createRequest()
     read(initialRequest)
-      .take(1000)
+      //      .async // this will break it
       .flatMapConcat(_.parts)
       .map(_.entity.contentType)
       .zipWithIndex
@@ -38,5 +38,4 @@ object WorkingUnfoldAsync {
     Http().singleRequest(request)
       .flatMap(response => Unmarshal(response).to[Multipart.General])
       .map(multipart => Some(request, multipart))
-
 }

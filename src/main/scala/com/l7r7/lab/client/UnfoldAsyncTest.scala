@@ -3,12 +3,11 @@ package com.l7r7.lab.client
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.model.headers.{ Authorization, BasicHttpCredentials }
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
 
-import scala.concurrent.{ ExecutionContext, ExecutionContextExecutor, Future }
+import scala.concurrent.{ ExecutionContextExecutor, Future }
 
 object UnfoldAsyncTest {
   implicit val actorSystem: ActorSystem = ActorSystem()
@@ -31,7 +30,7 @@ object UnfoldAsyncTest {
       .runForeach(println)
   }
 
-  def crawl(request: HttpRequest)(implicit actorSystem: ActorSystem, executionContext: ExecutionContext): Future[Option[(HttpRequest, HttpResponse)]] = {
+  def crawl(request: HttpRequest): Future[Option[(HttpRequest, HttpResponse)]] = {
     Http().singleRequest(request)
       .map(response => Some(request, response))
   }
